@@ -60,3 +60,11 @@ p{
   margin-inline-start:0px;
   margin-inline-end:0px;
 }
+
+.nav{
+  display: flex;
+  flex-wrap:nowrap;
+  justify-content:space-between;
+  text-align: center;
+}
+

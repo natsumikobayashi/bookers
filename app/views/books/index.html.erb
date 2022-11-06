@@ -1,13 +1,24 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>WebCampBackendNew</title>
-    <meta name="csrf-param" content="authenticity_token" />
-    <meta name="csrf-token" content="8HS0L1MySvaPxkbnROpqDKXq90QJ3A6S2XEQw2AW3gPaTLvvk7Dea2D2DAnLx56M+9HNdXZf2lsrnbogI3lV6w==" />
-    
-    <link rel="stylesheet" media="all" href="/assets/application-d12397cbc3a266ce5a99f7b588223090c55ca04a439953bb5f9304395de93fc3.css" data-turbolinks-track="reload" />
-    <script src="/assets/application-114264dd93c8ff30e4335b71eed7949d66c4e7a8eb62e2de6284c046fe07104b.js" data-turbolinks-track="reload"></script>
-  </head>
-  <body>
-    
-    
+<h1>Books</h1>
+
+<main>
+<div class='nav'>
+<div class="nav-name">Title</div>
+<div class="nav-name">Body</div>
+<div class="nav-name"></div>
+</div>
+
+<div class="list-box">
+  <% @books.each do |list| %>
+  <span class="list-title"><%= list.title %></span>
+  <span class="list-body"><%= list.body %></span>
+  <% end %>
+  <h2>New Book</h2>
+  <%=form_with do |f| %>
+  <h4>Title</h4>
+  <%=f.text_field:title %>
+  <h4>Body</h4>
+  <%=f.text_area:body %>
+  <%=f.submit 'Create Book' %>
+  <% end %>
+</div>
+</main>
