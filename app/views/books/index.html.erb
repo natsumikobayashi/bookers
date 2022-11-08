@@ -1,31 +1,42 @@
 <h1>Books</h1>
 
 <main>
-<thead>
- <tr>
-  <th>Title</th>
-  <th>Body</th>
-  <th></th>
- </tr>
-</thead>
-
-<tbody>
+<table>
+ <thead>
   <tr>
-    <!--ここから-->
-   <% @books.each do |book| %> <!--bookはブロック変数-->
-    <tb><%= book.title %></tb>
-    <tb><%= book.body %></tb>
-  <tb>
-   <tb><%= link_to "Show", book_path(book.id) %></tb>
-   <tb><%= link_to "Edit", edit_book_path(book.id) %></tb>
-   <tb><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></tb>
-  </tb>
-  <% end %>
-  <!--ここまでの内容をbookごとに繰り返し表示-->
+   <th>Title</th>
+   <th>Body</th>
+   <th></th>
   </tr>
-  
-  </tbody>
+ </thead>
+
+ <tbody>
+    <!--ここから-->
+    <% @books.each do |book| %> <!--bookはブロック変数-->
+     <tr>
+       <td><%= book.title %></td>
+       <td><%= book.body %></td>
+      <td>
+       <td><%= link_to "Show", book_path(book.id) %></td>
+       <td><%= link_to "Edit", edit_book_path(book.id) %></td>
+       <td><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></td>
+      </td>
+     </tr>
+    <% end %>
+  <!--ここまでの内容をbookごとに繰り返し表示-->
+   </tr>
+ </tbody>
+</table>
+
   <h2>New Book</h2>
+  <% if @book.errors.any? %>
+  <%= @book.errors.count %>erros
+  <ul>
+    <% @book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+  <% end %>
   <!--bookモデルに送るためのform_with-->
   <%=form_with model:@book do |f| %>
   <h4>Title</h4>
@@ -34,4 +45,5 @@
   <%=f.text_area :body %>
   <%=f.submit 'Create Book' %>
   <% end %>
+  
 </main>
