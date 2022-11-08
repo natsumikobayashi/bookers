@@ -1,27 +1,37 @@
 <h1>Books</h1>
 
 <main>
-<div class='nav'>
-<div class="nav-name">Title</div>
-<div class="nav-name">Body</div>
-<div class="nav-name"></div>
-</div>
+<thead>
+ <tr>
+  <th>Title</th>
+  <th>Body</th>
+  <th></th>
+ </tr>
+</thead>
 
-<div class="list-box">
-  <% @books.each do |list| %>
-  <span class="list-title"><%= list.title %></span>
-  <span class="list-body"><%= list.body %></span>
-  
-  
+<tbody>
+  <tr>
+    <!--ここから-->
+   <% @books.each do |book| %> <!--bookはブロック変数-->
+    <tb><%= book.title %></tb>
+    <tb><%= book.body %></tb>
+  <tb>
+   <tb><%= link_to "Show", book_path(book.id) %></tb>
+   <tb><%= link_to "Edit", edit_book_path(book.id) %></tb>
+   <tb><%= link_to "Destroy", book_path(book.id), method: :delete, "data-confirm" => "本当に削除しますか？" %></tb>
+  </tb>
   <% end %>
+  <!--ここまでの内容をbookごとに繰り返し表示-->
+  </tr>
   
+  </tbody>
   <h2>New Book</h2>
-  <%=form_with model: @book do |f| %> <!--bookモデルと連携-->
+  <!--bookモデルに送るためのform_with-->
+  <%=form_with model:@book do |f| %>
   <h4>Title</h4>
   <%=f.text_field :title %>
   <h4>Body</h4>
   <%=f.text_area :body %>
   <%=f.submit 'Create Book' %>
   <% end %>
-</div>
 </main>

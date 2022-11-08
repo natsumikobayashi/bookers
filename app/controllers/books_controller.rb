@@ -3,6 +3,7 @@ class BooksController < ApplicationController
   end
 
   def show
+   @book = Book.find(params[:id]) #見たいページを
   end
 
   def index
@@ -11,19 +12,25 @@ class BooksController < ApplicationController
   end
 
   def edit
-    @book=Book.find(params[:id]) #データを取得
+    @book=Book.find(params[:id]) #編集したいデータを取得
   end
   
   def create
     book =Book.new(book_params) #データを受け取り新規登録するための空箱
     book.save #bookを保存
-    redirect_to '/books/:id' #ルーティングで投稿内容によって違うページが表示されるように
+    redirect_to book_path(book.id) #ルーティングで投稿内容によって違うページが表示されるように
   end
   
   def destroy
-    book=Book.find(params[:id]) #データを1件取得
+    book=Book.find(params[:id]) #消すデータを取得
     book.destroy #データ削除
     redirect_to '/books' #books一覧画面へリダイレクト
+  end
+  
+  def update
+    book = Book.find(params[:id]) #更新するデータ取得
+    book.update(book_params) #データ更新
+    redirect_to book_path(book.id) #更新した内容が分かるviewへリダイレクト
   end
   
   private
