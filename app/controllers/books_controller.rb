@@ -13,6 +13,7 @@ class BooksController < ApplicationController
 
   def edit
     @book=Book.find(params[:id]) #編集したいデータを取得
+    
   end
   
   def create #viewに渡す必要があるため、インスタンス変数使う
@@ -22,7 +23,7 @@ class BooksController < ApplicationController
     redirect_to book_path(@book.id) #ルーティングで投稿内容によって違うページが表示されるように
     else
       @books= Book.all #renderアクションのためにインスタンス変数(@books)を定義
-      render :index #indexページへ飛ぶように
+      render :index #空白の項目を再編集するためにindexへ(ifの@bookはそのまま使用するためrender)
     end
   end
   
@@ -32,11 +33,14 @@ class BooksController < ApplicationController
     redirect_to '/books' #books一覧画面へリダイレクト
   end
   
-  def update #viewに渡す必要がないためローカル変数使う
-    book = Book.find(params[:id]) #更新するデータ取得
-    book.update(book_params) #データ更新
-      flash[:notice] = "Book was successfully updated." #更新できたフラッシュメッセージ表示
-    redirect_to book_path(book.id) #更新した内容が分かるviewへリダイレクト
+  def update #viewに渡す必要があるためインスタンス変数使う
+    @book =Book.find(params[:id]) #更新するデータ取得
+    if @book.update(book_params) #編集したデータを更新するか再編集させるか
+      flash[:notice] = "Book was successfully updated." #更新できたらフラッシュメッセージ表示
+    redirect_to book_path(@book.id) #更新できた内容が分かるviewへリダイレクト
+    else
+    render :edit #再編集するためにeditへ(ifの@bookはそのまま使用するためrender)
+    end
   end
   
   
