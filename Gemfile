@@ -57,3 +57,5 @@ group :test do
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'net-smtp'
+
+gem 'whenever', require: false
